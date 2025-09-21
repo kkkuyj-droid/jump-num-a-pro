@@ -9,11 +9,15 @@ interface JumpRopeAnimationProps {
 export const JumpRopeAnimation = ({ isJumping, jumpCount = 0, onAnimationComplete }: JumpRopeAnimationProps) => {
   const [currentJumps, setCurrentJumps] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [ropePhase, setRopePhase] = useState<'over' | 'under'>('over');
+  const [characterY, setCharacterY] = useState(0);
 
   useEffect(() => {
     if (isJumping && jumpCount > 0) {
       setCurrentJumps(0);
       setIsAnimating(true);
+      setRopePhase('over');
+      setCharacterY(0);
       
       const animateJumps = () => {
         let jumps = 0;
@@ -21,14 +25,25 @@ export const JumpRopeAnimation = ({ isJumping, jumpCount = 0, onAnimationComplet
           jumps++;
           setCurrentJumps(jumps);
           
+          // Animate rope swing and character jump
+          setRopePhase('under');
+          setCharacterY(-20); // Jump up
+          
+          setTimeout(() => {
+            setRopePhase('over');
+            setCharacterY(0); // Land down
+          }, 200);
+          
           if (jumps >= jumpCount) {
             clearInterval(interval);
-            setIsAnimating(false);
             setTimeout(() => {
+              setIsAnimating(false);
+              setRopePhase('over');
+              setCharacterY(0);
               onAnimationComplete?.();
-            }, 500); // Small delay before audio
+            }, 400);
           }
-        }, 600);
+        }, 800);
 
         return interval;
       };
@@ -38,6 +53,8 @@ export const JumpRopeAnimation = ({ isJumping, jumpCount = 0, onAnimationComplet
     } else {
       setCurrentJumps(0);
       setIsAnimating(false);
+      setRopePhase('over');
+      setCharacterY(0);
     }
   }, [isJumping, jumpCount, onAnimationComplete]);
 
@@ -58,38 +75,71 @@ export const JumpRopeAnimation = ({ isJumping, jumpCount = 0, onAnimationComplet
         ))}
       </div>
 
-      <div className="relative">
+      <div className="relative w-40 h-40 flex items-center justify-center">
         {/* Main glow effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/40 to-accent/40 rounded-full blur-2xl animate-magic-glow" />
         
         {/* Jump rope visualization */}
-        <div className="relative w-32 h-32 flex items-center justify-center">
-          {/* Rope path - animated circle */}
-          <div 
-            className={`absolute w-28 h-28 border-4 rounded-full transition-all duration-300 ${
-              isAnimating && currentJumps < jumpCount
-                ? 'border-accent animate-rope-spin shadow-[0_0_20px_hsl(var(--accent))]' 
-                : 'border-primary/50'
-            }`}
-          />
-          
-          {/* Center jumping element */}
-          <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-            isAnimating && currentJumps < jumpCount
-              ? 'bg-gradient-to-br from-primary to-accent shadow-[0_0_30px_hsl(var(--primary))] transform -translate-y-2' 
-              : 'bg-gradient-to-br from-primary/70 to-accent/70'
-          }`}>
-            {/* Inner core */}
-            <div className="w-6 h-6 bg-foreground rounded-full" />
-          </div>
+        <div className="relative w-36 h-36 flex items-center justify-center">
+          {/* Rope - animated path */}
+          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 144 144" style={{ overflow: 'visible' }}>
+            {/* Rope path based on phase */}
+            <path
+              d={ropePhase === 'over' 
+                ? "M 30 72 Q 72 20 114 72" // Rope over head
+                : "M 30 72 Q 72 124 114 72" // Rope under feet
+              }
+              stroke={`hsl(var(--accent))`}
+              strokeWidth="4"
+              fill="none"
+              className="transition-all duration-200 ease-in-out"
+              style={{
+                filter: isAnimating ? 'drop-shadow(0 0 8px hsl(var(--accent)))' : 'none'
+              }}
+            />
+          </svg>
           
           {/* Rope handles */}
-          <div className={`absolute -left-2 top-1/2 w-4 h-8 rounded-full transition-all duration-300 ${
-            isAnimating ? 'bg-accent rotate-12' : 'bg-primary/70'
-          }`} />
-          <div className={`absolute -right-2 top-1/2 w-4 h-8 rounded-full transition-all duration-300 ${
-            isAnimating ? 'bg-accent -rotate-12' : 'bg-primary/70'
-          }`} />
+          <div 
+            className="absolute w-4 h-8 rounded-full transition-all duration-200"
+            style={{
+              left: '20px',
+              top: '64px',
+              background: `hsl(var(--accent))`,
+              transform: ropePhase === 'over' ? 'rotate(-30deg)' : 'rotate(30deg)'
+            }}
+          />
+          <div 
+            className="absolute w-4 h-8 rounded-full transition-all duration-200"
+            style={{
+              right: '20px',
+              top: '64px',
+              background: `hsl(var(--accent))`,
+              transform: ropePhase === 'over' ? 'rotate(30deg)' : 'rotate(-30deg)'
+            }}
+          />
+          
+          {/* Jumping character/object */}
+          <div 
+            className="absolute w-16 h-16 rounded-full flex items-center justify-center transition-all duration-200 ease-out"
+            style={{
+              background: `linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))`,
+              boxShadow: isAnimating ? '0 0 30px hsl(var(--primary))' : '0 0 15px hsl(var(--primary) / 0.5)',
+              transform: `translateY(${characterY}px)`,
+              left: '50%',
+              top: '50%',
+              marginLeft: '-32px',
+              marginTop: '-32px'
+            }}
+          >
+            {/* Inner core with face */}
+            <div className="w-10 h-10 bg-foreground rounded-full flex items-center justify-center">
+              <div className="flex space-x-1">
+                <div className="w-1.5 h-1.5 bg-background rounded-full"></div>
+                <div className="w-1.5 h-1.5 bg-background rounded-full"></div>
+              </div>
+            </div>
+          </div>
         </div>
         
         {/* Jump counter with magical effect */}
@@ -105,6 +155,9 @@ export const JumpRopeAnimation = ({ isJumping, jumpCount = 0, onAnimationComplet
             )}
           </div>
         </div>
+        
+        {/* Ground line */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-primary/30 rounded-full"></div>
       </div>
     </div>
   );
