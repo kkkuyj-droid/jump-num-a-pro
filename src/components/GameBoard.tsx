@@ -84,18 +84,7 @@ export const GameBoard = () => {
               {t.gameTitle}
             </h1>
           </div>
-       
-          <div className="mt-3 text-center">
-           <a
-            href="https://youtu.be/dDbr6UNNUOQ"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-4 py-1 mt-2 rounded-md bg-blue-50 text-blue-600 hover:bg-blue-100 transition text-sm font-semibold"
-           >
-             🎥 Watch Video
-            </a>
-          </div>   
-        </div> 
+         </div> 
      </div>
 
       
