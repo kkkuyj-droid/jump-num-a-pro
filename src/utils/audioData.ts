@@ -1,44 +1,44 @@
-// Korean number audio variations - simplified to 3 patterns only
+// Korean number audio variations - clear pronunciation
 export const koreanNumbers = [
   {
     number: 1,
-    variations: ["한 개", "한 개 했어", "한 개 했어요"]
+    variations: ["하나", "일", "원"]
   },
   {
     number: 2,
-    variations: ["두 개", "두 개 했어", "두 개 했어요"]
+    variations: ["둘", "이", "투"]
   },
   {
     number: 3,
-    variations: ["세 개", "세 개 했어", "세 개 했어요"]
+    variations: ["셋", "삼", "쓰리"]
   },
   {
     number: 4,
-    variations: ["네 개", "네 개 했어", "네 개 했어요"]
+    variations: ["넷", "사", "포"]
   },
   {
     number: 5,
-    variations: ["다섯 개", "다섯 개 했어", "다섯 개 했어요"]
+    variations: ["다섯", "오", "파이브"]
   },
   {
     number: 6,
-    variations: ["여섯 개", "여섯 개 했어", "여섯 개 했어요"]
+    variations: ["여섯", "육", "식스"]
   },
   {
     number: 7,
-    variations: ["일곱 개", "일곱 개 했어", "일곱 개 했어요"]
+    variations: ["일곱", "칠", "세븐"]
   },
   {
     number: 8,
-    variations: ["여덟 개", "여덟 개 했어", "여덟 개 했어요"]
+    variations: ["여덟", "팔", "에이트"]
   },
   {
     number: 9,
-    variations: ["아홉 개", "아홉 개 했어", "아홉 개 했어요"]
+    variations: ["아홉", "구", "나인"]
   },
   {
     number: 10,
-    variations: ["열 개", "열 개 했어", "열 개 했어요"]
+    variations: ["열", "십", "텐"]
   }
 ];
 
