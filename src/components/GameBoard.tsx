@@ -307,17 +307,7 @@ export const GameBoard = () => {
           shouldPlayFeedback={playFeedback}
           onComplete={() => setPlayFeedback(false)}
         />
-      <div className="text-center mt-6 text-sm text-muted-foreground">
-       <a
-         href="https://youtu.be/dDbr6UNNOUQ"
-         target="_blank"
-         rel="noopener noreferrer"
-         className="text-blue-600 underline hover:text-blue-800"
-       >
-        🔁 Youtube
-      </a>
-    </div>
-   </div>
+     </div>
   </div>
   );
 };
