@@ -142,19 +142,16 @@ export const JumpRopeAnimation = ({ isJumping, jumpCount = 0, onAnimationComplet
           </div>
         </div>
         
-        {/* Jump counter with magical effect */}
-        <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 text-center">
-          <div className="relative">
-            <div className="magic-gradient rounded-full w-16 h-16 flex items-center justify-center font-bold text-2xl text-background shadow-lg glow-primary">
-              {currentJumps}
-            </div>
-            {jumpCount > 0 && (
-              <div className="text-sm text-accent font-semibold mt-2 drop-shadow-lg">
-                / {jumpCount}
+        {/* Jump counter with magical effect - HIDDEN during gameplay */}
+        {!isAnimating && (
+          <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 text-center">
+            <div className="relative">
+              <div className="magic-gradient rounded-full w-16 h-16 flex items-center justify-center font-bold text-2xl text-background shadow-lg glow-primary">
+                ?
               </div>
-            )}
+            </div>
           </div>
-        </div>
+        )}
         
         {/* Ground line */}
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-primary/30 rounded-full"></div>
