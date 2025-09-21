@@ -102,13 +102,16 @@ export const GameBoard = () => {
             </div>
           </div>
 
-          {/* Center: Game Area */}
+          {/* Center: Game Area - No Animation */}
           <div className="lg:col-span-1 flex flex-col items-center justify-center space-y-4">
-            <JumpRopeAnimation 
-              isJumping={gameData.isJumping} 
-              jumpCount={gameData.gameState === "listening" ? gameData.currentNumber : 0}
-              onAnimationComplete={handleAnimationComplete}
-            />
+            <div className="h-48 flex items-center justify-center">
+              <div className="text-center space-y-4">
+                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-2xl glow-primary">
+                  <div className="text-4xl">🎧</div>
+                </div>
+                <p className="text-xl font-bold text-primary">{t.listening}</p>
+              </div>
+            </div>
 
             {/* Game Status Card */}
             <Card className="p-4 bg-card/70 backdrop-blur-sm border border-primary/30 h-fit glow-primary">

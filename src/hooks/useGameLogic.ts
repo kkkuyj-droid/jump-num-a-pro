@@ -49,13 +49,22 @@ export const useGameLogic = () => {
       timeRemaining: 5,
       gameState: "listening",
       isJumping: true,
-      animationComplete: false
+      animationComplete: true // Skip animation, go straight to audio
     }));
 
     // Clear existing timer
     if (timer) clearTimeout(timer);
 
-    // Animation will trigger audio, timer starts after animation
+    // Start timer for 5 seconds immediately
+    const newTimer = setTimeout(() => {
+      setGameData(prev => ({
+        ...prev,
+        gameState: "gameOver",
+        isJumping: false
+      }));
+    }, 5000);
+
+    setTimer(newTimer);
   }, [generateRandomNumber, timer]);
 
   // Start game
