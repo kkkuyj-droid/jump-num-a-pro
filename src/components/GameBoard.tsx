@@ -9,6 +9,7 @@ import { JumpRopeAnimation } from "./JumpRopeAnimation";
 import { AudioManager } from "./AudioManager";
 import { SoundEffects } from "./SoundEffects";
 import { FeedbackAudio } from "./FeedbackAudio";
+import { BackgroundMusic } from "./BackgroundMusic";
 import { useGameLogic } from "@/hooks/useGameLogic";
 import { getTranslation } from "@/utils/translations";
 
@@ -78,7 +79,7 @@ export const GameBoard = () => {
         {/* Header */}
         <div className="flex justify-between items-center mb-4 p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-primary/20 glow-primary">
           <div className="flex-1" />
-          <h1 className="text-2xl font-bold magic-gradient bg-clip-text text-transparent drop-shadow-lg">
+          <h1 className="text-xl lg:text-2xl font-bold magic-gradient bg-clip-text text-transparent drop-shadow-lg text-center">
             {t.gameTitle}
           </h1>
           <div className="flex-1 flex justify-end">
@@ -213,6 +214,12 @@ export const GameBoard = () => {
           </div>
         </div>
 
+        {/* Background Music */}
+        <BackgroundMusic
+          isPlaying={gameData.gameState !== "menu"}
+          volume={0.2}
+        />
+        
         {/* Audio Manager */}
         <AudioManager
           text={gameData.currentText}

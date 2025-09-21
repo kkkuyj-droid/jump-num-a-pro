@@ -25,14 +25,14 @@ export const JumpRopeAnimation = ({ isJumping, jumpCount = 0, onAnimationComplet
           jumps++;
           setCurrentJumps(jumps);
           
-          // Animate rope swing and character jump
+          // Animate rope swing and character jump - faster animation
           setRopePhase('under');
-          setCharacterY(-20); // Jump up
+          setCharacterY(-25); // Jump higher
           
           setTimeout(() => {
             setRopePhase('over');
             setCharacterY(0); // Land down
-          }, 200);
+          }, 150); // Faster transition
           
           if (jumps >= jumpCount) {
             clearInterval(interval);
@@ -41,9 +41,9 @@ export const JumpRopeAnimation = ({ isJumping, jumpCount = 0, onAnimationComplet
               setRopePhase('over');
               setCharacterY(0);
               onAnimationComplete?.();
-            }, 400);
+            }, 300); // Shorter delay
           }
-        }, 800);
+        }, 400); // Much faster jumping
 
         return interval;
       };
@@ -142,13 +142,18 @@ export const JumpRopeAnimation = ({ isJumping, jumpCount = 0, onAnimationComplet
           </div>
         </div>
         
-        {/* Jump counter with magical effect - HIDDEN during gameplay */}
-        {!isAnimating && (
+        {/* Jump counter - visible during animation to show current count */}
+        {isAnimating && (
           <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 text-center">
             <div className="relative">
-              <div className="magic-gradient rounded-full w-16 h-16 flex items-center justify-center font-bold text-2xl text-background shadow-lg glow-primary">
-                ?
+              <div className="magic-gradient rounded-full w-16 h-16 flex items-center justify-center font-bold text-2xl text-background shadow-lg glow-primary animate-bounce">
+                {currentJumps}
               </div>
+              {jumpCount > 0 && (
+                <div className="text-sm text-accent font-semibold mt-2 drop-shadow-lg">
+                  / {jumpCount}
+                </div>
+              )}
             </div>
           </div>
         )}

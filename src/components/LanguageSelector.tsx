@@ -20,7 +20,7 @@ export const LanguageSelector = ({ selectedLanguage, onLanguageChange }: Languag
   return (
     <div className="flex items-center gap-3">
       <Select value={selectedLanguage} onValueChange={onLanguageChange}>
-        <SelectTrigger className="w-[180px] bg-white/90 backdrop-blur-sm border-2 border-accent/30 hover:border-accent/60 transition-all duration-200">
+        <SelectTrigger className="w-[180px] bg-card/90 backdrop-blur-sm border-2 border-accent/30 hover:border-accent/60 transition-all duration-200 text-foreground">
           <SelectValue>
             <div className="flex items-center gap-2">
               <span className="text-lg">{selectedLang?.flag}</span>
@@ -28,12 +28,12 @@ export const LanguageSelector = ({ selectedLanguage, onLanguageChange }: Languag
             </div>
           </SelectValue>
         </SelectTrigger>
-        <SelectContent className="bg-white/95 backdrop-blur-sm">
+        <SelectContent className="bg-card/95 backdrop-blur-sm border border-border">
           {languages.map((lang) => (
             <SelectItem 
               key={lang.code} 
               value={lang.code}
-              className="hover:bg-accent/20 cursor-pointer transition-colors"
+              className="hover:bg-accent/20 cursor-pointer transition-colors text-foreground"
             >
               <div className="flex items-center gap-2">
                 <span className="text-lg">{lang.flag}</span>
