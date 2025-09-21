@@ -17,7 +17,6 @@ export interface Translation {
   yourAnswer: string;
   timeRemaining: string;
   pauseGame: string;
-  resumeGame: string;
   resetGame: string;
   musicOn: string;
   musicOff: string;
@@ -48,7 +47,6 @@ export const translations: Record<string, Translation> = {
     yourAnswer: "당신의 답",
     timeRemaining: "남은 시간",
     pauseGame: "게임 일시정지",
-    resumeGame: "계속하기",
     resetGame: "게임 리셋",
     musicOn: "음악 켜기",
     musicOff: "음악 끄기",
@@ -79,7 +77,6 @@ export const translations: Record<string, Translation> = {
     yourAnswer: "Your Answer",
     timeRemaining: "Time Remaining",
     pauseGame: "Pause Game",
-    resumeGame: "Resume Game",
     resetGame: "Reset Game", 
     musicOn: "Music On",
     musicOff: "Music Off",
@@ -106,7 +103,6 @@ export const translations: Record<string, Translation> = {
     yourAnswer: "あなたの答え",
     timeRemaining: "残り時間",
     pauseGame: "ゲーム一時停止",
-    resumeGame: "ゲーム再開",  
     resetGame: "ゲームリセット",
     musicOn: "音楽オン",
     musicOff: "音楽オフ",
@@ -135,7 +131,6 @@ export const translations: Record<string, Translation> = {
     yourAnswer: "你的答案",
     timeRemaining: "剩余时间",
     pauseGame: "暂停游戏",
-    resumeGame: "继续游戏",
     resetGame: "重置游戏",
     musicOn: "开启音乐",
     musicOff: "关闭音乐",
@@ -164,7 +159,6 @@ export const translations: Record<string, Translation> = {
     yourAnswer: "Câu trả lời của bạn",
     timeRemaining: "Thời gian còn lại",
     pauseGame: "Tạm dừng game",
-    resumeGame: "Tiếp tục",
     resetGame: "Khởi động lại",
     musicOn: "Bật nhạc",
     musicOff: "Tắt nhạc",
@@ -193,7 +187,6 @@ export const translations: Record<string, Translation> = {
     yourAnswer: "Tu respuesta",
     timeRemaining: "Tiempo restante",
     pauseGame: "Pausar juego",
-    resumeGame: "Reanudar juego",
     resetGame: "Reiniciar juego",
     musicOn: "Música encendida",
     musicOff: "Música apagada",
