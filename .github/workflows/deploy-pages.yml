@@ -23,11 +23,11 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: npm install
+      - run: npm install           # ← 여기 꼭 install
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./dist             # Vite 기본 빌드 폴더
 
   deploy:
     needs: build
