@@ -139,13 +139,10 @@ export const GameBoard = () => {
                 <div className="text-center space-y-3">
                   <p className="text-lg font-bold text-primary">{t.listening}</p>
                   {gameData.animationComplete && (
-                    <>
-                      <p className="text-base text-accent">"{gameData.currentText}"</p>
-                      <div className="space-y-2">
-                        <p className="text-sm text-muted-foreground">{t.timeRemaining}: {gameData.timeRemaining}초</p>
-                        <Progress value={progressPercentage} className="w-full" />
-                      </div>
-                    </>
+                    <div className="space-y-2">
+                      <p className="text-sm text-muted-foreground">{t.timeRemaining}: {gameData.timeRemaining}초</p>
+                      <Progress value={progressPercentage} className="w-full" />
+                    </div>
                   )}
                 </div>
               )}
