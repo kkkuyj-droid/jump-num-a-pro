@@ -203,15 +203,15 @@ export const GameBoard = () => {
               )}
 
               {gameData.gameState === "paused" && (
-                <div className="text-center space-y-3">
-                  <p className="text-xl font-bold text-warning animate-pulse">
-                    게임 일시정지
-                  </p>
-                  <div className="text-sm text-accent font-semibold">
-                    {t.questionCount} {gameData.currentQuestion}
-                  </div>
-                </div>
-              )}
+  <div className="text-center space-y-3">
+    <p className="text-xl font-bold text-warning animate-pulse">
+      {t.pauseGame}
+    </p>
+    <div className="text-sm text-accent font-semibold">
+      {t.questionCount} {gameData.currentQuestion}
+    </div>
+  </div>
+)}
 
               {gameData.gameState === "waiting" && (
                 <div className="text-center space-y-3">
