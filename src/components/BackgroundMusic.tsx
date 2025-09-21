@@ -25,12 +25,12 @@ export const BackgroundMusic = ({ isPlaying, volume = 0.1 }: BackgroundMusicProp
     oscillator.connect(gainNode);
     gainNode.connect(audioContext.destination);
     
-    // Create a gentle, less intrusive sound
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(220, audioContext.currentTime); // Lower frequency A3
+    // Create upbeat, bright melody
+    oscillator.type = 'triangle';
+    oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // A4 - brighter start
     
-    // Create a simple, slow melody pattern
-    const notes = [220, 246.94, 261.63, 293.66]; // A-B-C-D (lower octave)
+    // Create a happy, upbeat melody pattern
+    const notes = [440, 523.25, 659.25, 783.99, 880, 659.25, 523.25, 440]; // A-C-E-G-A-E-C-A (major progression)
     let noteIndex = 0;
     
     const playMelody = () => {
@@ -40,11 +40,11 @@ export const BackgroundMusic = ({ isPlaying, volume = 0.1 }: BackgroundMusicProp
       }
     };
     
-    // Play melody notes every 2 seconds (much slower)
-    const melodyInterval = setInterval(playMelody, 2000);
+    // Play melody notes every 0.6 seconds (upbeat tempo)
+    const melodyInterval = setInterval(playMelody, 600);
     
     gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-    gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 1);
+    gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 0.3);
     
     oscillator.start(audioContext.currentTime);
     

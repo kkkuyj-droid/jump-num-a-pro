@@ -18,8 +18,9 @@ export const GameBoard = () => {
   const [playCorrectSound, setPlayCorrectSound] = useState(false);
   const [playIncorrectSound, setPlayIncorrectSound] = useState(false);
   const [playFeedback, setPlayFeedback] = useState(false);
+  const [musicEnabled, setMusicEnabled] = useState(true);
   
-  const { gameData, startGame, handleAnswer, resetGame, getRandomPositiveFeedback, handleAnimationComplete } = useGameLogic();
+  const { gameData, startGame, handleAnswer, resetGame, pauseGame, resumeGame, getRandomPositiveFeedback, handleAnimationComplete } = useGameLogic();
   const t = getTranslation(selectedLanguage);
 
   // Handle keyboard input
@@ -76,13 +77,60 @@ export const GameBoard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-card p-2">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-4 p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-primary/20 glow-primary">
-          <div className="flex-1" />
-          <h1 className="text-xl lg:text-2xl font-bold magic-gradient bg-clip-text text-transparent drop-shadow-lg text-center">
-            {t.gameTitle}
-          </h1>
-          <div className="flex-1 flex justify-end">
+        {/* Game Title Header - Prominent placement */}
+        <div className="text-center py-6 mb-4">
+          <div className="bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 rounded-2xl border-2 border-primary/30 p-6 glow-primary">
+            <h1 className="text-2xl lg:text-3xl font-bold magic-gradient bg-clip-text text-transparent drop-shadow-lg">
+              {t.gameTitle}
+            </h1>
+          </div>
+        </div>
+
+        {/* Controls Header */}
+        <div className="flex justify-between items-center mb-4 p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-primary/20">
+          <div className="flex gap-2">
+            <Button
+              onClick={() => setMusicEnabled(!musicEnabled)}
+              variant="outline"
+              size="sm"
+              className="text-xs"
+            >
+              {musicEnabled ? t.musicOff : t.musicOn}
+            </Button>
+          </div>
+          <div className="flex gap-2">
+            {gameData.gameState === "listening" && (
+              <Button
+                onClick={pauseGame}
+                variant="outline"
+                size="sm"
+                className="text-xs"
+              >
+                {t.pauseGame}
+              </Button>
+            )}
+            {gameData.gameState === "paused" && (
+              <Button
+                onClick={resumeGame}
+                variant="outline"
+                size="sm"
+                className="text-xs"
+              >
+                계속하기
+              </Button>
+            )}
+            {(gameData.gameState !== "menu") && (
+              <Button
+                onClick={resetGame}
+                variant="outline"
+                size="sm"
+                className="text-xs"
+              >
+                {t.resetGame}
+              </Button>
+            )}
+          </div>
+          <div className="flex justify-end">
             <LanguageSelector 
               selectedLanguage={selectedLanguage}
               onLanguageChange={setSelectedLanguage}
@@ -142,12 +190,26 @@ export const GameBoard = () => {
               {gameData.gameState === "listening" && (
                 <div className="text-center space-y-3">
                   <p className="text-lg font-bold text-primary">{t.listening}</p>
+                  <div className="text-sm text-accent font-semibold">
+                    {t.questionCount} {gameData.currentQuestion} / {gameData.maxQuestions}
+                  </div>
                   {gameData.animationComplete && (
                     <div className="space-y-2">
                       <p className="text-sm text-muted-foreground">{t.timeRemaining}: {gameData.timeRemaining}초</p>
                       <Progress value={progressPercentage} className="w-full" />
                     </div>
                   )}
+                </div>
+              )}
+
+              {gameData.gameState === "paused" && (
+                <div className="text-center space-y-3">
+                  <p className="text-xl font-bold text-warning animate-pulse">
+                    게임 일시정지
+                  </p>
+                  <div className="text-sm text-accent font-semibold">
+                    {t.questionCount} {gameData.currentQuestion} / {gameData.maxQuestions}
+                  </div>
                 </div>
               )}
 
@@ -219,8 +281,8 @@ export const GameBoard = () => {
 
         {/* Background Music */}
         <BackgroundMusic
-          isPlaying={gameData.gameState !== "menu"}
-          volume={0.05}
+          isPlaying={gameData.gameState !== "menu" && musicEnabled}
+          volume={0.08}
         />
         
         {/* Audio Manager */}

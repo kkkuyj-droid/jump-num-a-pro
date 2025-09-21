@@ -16,17 +16,22 @@ export interface Translation {
   listening: string;
   yourAnswer: string;
   timeRemaining: string;
+  pauseGame: string;
+  resetGame: string;
+  musicOn: string;
+  musicOff: string;
+  questionCount: string;
 }
 
 export const translations: Record<string, Translation> = {
   ko: {
     score: "점수",
-    highScore: "최고 점수",
-    gameTitle: "줄넘기 하나부터 열까지 숫자 듣기 게임",
+    highScore: "최고 점수", 
+    gameTitle: "한국어 하나부터 열까지 숫자 듣기 게임",
     gameDescription: "음성을 듣고 올바른 숫자 키를 눌러주세요!",
     languageSelect: "언어 선택",
     playAgain: "다시 하기",
-    gameInstructions: "1-10 사이의 숫자를 듣고 키보드 숫자키로 답하세요. 5초 안에 답해야 합니다!",
+    gameInstructions: "1-10 사이의 한국어 숫자를 듣고 숫자를 눌러 주세요. 5초 안에 누르세요.",
     finalScore: "최종 점수",
     successCount: "성공 횟수",
     outOf: "중",
@@ -36,16 +41,21 @@ export const translations: Record<string, Translation> = {
     startGame: "게임 시작",
     listening: "듣는 중...",
     yourAnswer: "당신의 답",
-    timeRemaining: "남은 시간"
+    timeRemaining: "남은 시간",
+    pauseGame: "게임 일시정지",
+    resetGame: "게임 리셋",
+    musicOn: "음악 켜기",
+    musicOff: "음악 끄기",
+    questionCount: "문제"
   },
   en: {
     score: "Score",
     highScore: "High Score",
-    gameTitle: "Jump Rope Number Listening Game 1-10",
+    gameTitle: "Korean Numbers 1-10 Listening Game",
     gameDescription: "Listen to Korean audio and press the correct number key!",
     languageSelect: "Select Language",
     playAgain: "Play Again",
-    gameInstructions: "Listen to numbers 1-10 in Korean and respond with keyboard number keys. You have 5 seconds to answer!",
+    gameInstructions: "Listen to Korean numbers 1-10 and press the number. Answer within 5 seconds.",
     finalScore: "Final Score",
     successCount: "Success Count",
     outOf: "out of",
@@ -55,16 +65,21 @@ export const translations: Record<string, Translation> = {
     startGame: "Start Game",
     listening: "Listening...",
     yourAnswer: "Your Answer",
-    timeRemaining: "Time Remaining"
+    timeRemaining: "Time Remaining",
+    pauseGame: "Pause Game",
+    resetGame: "Reset Game", 
+    musicOn: "Music On",
+    musicOff: "Music Off",
+    questionCount: "Question"
   },
   ja: {
     score: "スコア",
     highScore: "ハイスコア",
-    gameTitle: "縄跳び数字リスニングゲーム 1-10",
+    gameTitle: "韓国語数字リスニングゲーム 1-10",
     gameDescription: "韓国語の音声を聞いて正しい数字キーを押してください！",
     languageSelect: "言語選択",
     playAgain: "もう一度",
-    gameInstructions: "1-10の韓国語の数字を聞いて、キーボードの数字キーで答えてください。5秒以内に答える必要があります！",
+    gameInstructions: "1-10の韓国語の数字を聞いて数字を押してください。5秒以内に押してください。",
     finalScore: "最終スコア",
     successCount: "成功回数",
     outOf: "中",
@@ -74,16 +89,21 @@ export const translations: Record<string, Translation> = {
     startGame: "ゲーム開始",
     listening: "聞いています...",
     yourAnswer: "あなたの答え",
-    timeRemaining: "残り時間"
+    timeRemaining: "残り時間",
+    pauseGame: "ゲーム一時停止",
+    resetGame: "ゲームリセット",
+    musicOn: "音楽オン",
+    musicOff: "音楽オフ",
+    questionCount: "問題"
   },
   zh: {
     score: "分数",
     highScore: "最高分",
-    gameTitle: "跳绳数字听力游戏 1-10",
+    gameTitle: "韩语数字听力游戏 1-10",
     gameDescription: "听韩语音频并按正确的数字键！",
     languageSelect: "选择语言",
     playAgain: "再玩一次",
-    gameInstructions: "听1-10的韩语数字，用键盘数字键回答。你有5秒钟的时间回答！",
+    gameInstructions: "听1-10的韩语数字并按数字。5秒内按下。",
     finalScore: "最终分数",
     successCount: "成功次数",
     outOf: "中的",
@@ -93,16 +113,21 @@ export const translations: Record<string, Translation> = {
     startGame: "开始游戏",
     listening: "正在听...",
     yourAnswer: "你的答案",
-    timeRemaining: "剩余时间"
+    timeRemaining: "剩余时间",
+    pauseGame: "暂停游戏",
+    resetGame: "重置游戏",
+    musicOn: "开启音乐",
+    musicOff: "关闭音乐",
+    questionCount: "问题"
   },
   vi: {
     score: "Điểm số",
     highScore: "Điểm cao nhất",
-    gameTitle: "Game Nhảy Dây Nghe Số 1-10",
+    gameTitle: "Game Nghe Số Tiếng Hàn 1-10",
     gameDescription: "Nghe âm thanh tiếng Hàn và nhấn phím số đúng!",
     languageSelect: "Chọn Ngôn ngữ",
     playAgain: "Chơi lại",
-    gameInstructions: "Nghe các số từ 1-10 bằng tiếng Hàn và trả lời bằng phím số trên bàn phím. Bạn có 5 giây để trả lời!",
+    gameInstructions: "Nghe số tiếng Hàn từ 1-10 và nhấn số. Trả lời trong 5 giây.",
     finalScore: "Điểm cuối",
     successCount: "Số lần thành công",
     outOf: "trên",
@@ -112,16 +137,21 @@ export const translations: Record<string, Translation> = {
     startGame: "Bắt đầu trò chơi",
     listening: "Đang nghe...",
     yourAnswer: "Câu trả lời của bạn",
-    timeRemaining: "Thời gian còn lại"
+    timeRemaining: "Thời gian còn lại",
+    pauseGame: "Tạm dừng game",
+    resetGame: "Khởi động lại",
+    musicOn: "Bật nhạc",
+    musicOff: "Tắt nhạc",
+    questionCount: "Câu hỏi"
   },
   es: {
     score: "Puntuación",
     highScore: "Puntuación máxima",
-    gameTitle: "Juego de Saltar Cuerda y Escuchar Números 1-10",
+    gameTitle: "Juego de Números Coreanos 1-10",
     gameDescription: "¡Escucha el audio en coreano y presiona la tecla numérica correcta!",
     languageSelect: "Seleccionar idioma",
     playAgain: "Jugar de nuevo",
-    gameInstructions: "Escucha números del 1-10 en coreano y responde con las teclas numéricas del teclado. ¡Tienes 5 segundos para responder!",
+    gameInstructions: "Escucha números coreanos del 1-10 y presiona el número. Responde en 5 segundos.",
     finalScore: "Puntuación final",
     successCount: "Aciertos",
     outOf: "de",
@@ -131,7 +161,12 @@ export const translations: Record<string, Translation> = {
     startGame: "Comenzar juego",
     listening: "Escuchando...",
     yourAnswer: "Tu respuesta",
-    timeRemaining: "Tiempo restante"
+    timeRemaining: "Tiempo restante",
+    pauseGame: "Pausar juego",
+    resetGame: "Reiniciar juego",
+    musicOn: "Música encendida",
+    musicOff: "Música apagada",
+    questionCount: "Pregunta"
   }
 };
 

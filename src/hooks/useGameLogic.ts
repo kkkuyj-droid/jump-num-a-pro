@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { koreanNumbers, getRandomVariation, getRandomPositiveFeedback } from "@/utils/audioData";
 
-export type GameState = "menu" | "playing" | "listening" | "waiting" | "gameOver";
+export type GameState = "menu" | "playing" | "listening" | "waiting" | "gameOver" | "paused";
 
 export interface GameData {
   currentNumber: number;
@@ -14,6 +14,8 @@ export interface GameData {
   correctAnswers: number;
   isJumping: boolean;
   animationComplete: boolean;
+  currentQuestion: number;
+  maxQuestions: number;
 }
 
 export const useGameLogic = () => {
@@ -27,7 +29,9 @@ export const useGameLogic = () => {
     totalQuestions: 0,
     correctAnswers: 0,
     isJumping: false,
-    animationComplete: false
+    animationComplete: false,
+    currentQuestion: 0,
+    maxQuestions: 10
   });
 
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
@@ -49,7 +53,8 @@ export const useGameLogic = () => {
       timeRemaining: 5,
       gameState: "listening",
       isJumping: true,
-      animationComplete: true // Skip animation, go straight to audio
+      animationComplete: true,
+      currentQuestion: prev.currentQuestion + 1
     }));
 
     // Clear existing timer
@@ -74,6 +79,7 @@ export const useGameLogic = () => {
       score: 0,
       totalQuestions: 0,
       correctAnswers: 0,
+      currentQuestion: 0,
       gameState: "playing"
     }));
     
@@ -103,24 +109,58 @@ export const useGameLogic = () => {
         localStorage.setItem("jumpRopeHighScore", newScore.toString());
       }
 
+      // Check if game should end (10 questions completed or wrong answer)
+      const shouldEndGame = !isCorrect || prev.currentQuestion >= prev.maxQuestions;
+
       return {
         ...prev,
         score: newScore,
         highScore: newHighScore,
         totalQuestions: prev.totalQuestions + 1,
         correctAnswers: isCorrect ? prev.correctAnswers + 1 : prev.correctAnswers,
-        gameState: isCorrect ? "waiting" : "gameOver",
+        gameState: shouldEndGame ? "gameOver" : "waiting",
         isJumping: false
       };
     });
 
-    // If correct, continue to next round after delay
-    if (isCorrect) {
+    // If correct and not at max questions, continue to next round
+    if (isCorrect && gameData.currentQuestion < gameData.maxQuestions) {
       setTimeout(() => {
         startNewRound();
       }, 2000);
     }
-  }, [gameData.gameState, gameData.currentNumber, timer, startNewRound]);
+  }, [gameData.gameState, gameData.currentNumber, gameData.currentQuestion, gameData.maxQuestions, timer, startNewRound]);
+
+  // Pause game
+  const pauseGame = useCallback(() => {
+    if (timer) {
+      clearTimeout(timer);
+      setTimer(null);
+    }
+    setGameData(prev => ({
+      ...prev,
+      gameState: "paused"
+    }));
+  }, [timer]);
+
+  // Resume game
+  const resumeGame = useCallback(() => {
+    setGameData(prev => ({
+      ...prev,
+      gameState: "listening"
+    }));
+
+    // Restart timer
+    const newTimer = setTimeout(() => {
+      setGameData(prev => ({
+        ...prev,
+        gameState: "gameOver",
+        isJumping: false
+      }));
+    }, gameData.timeRemaining * 1000);
+
+    setTimer(newTimer);
+  }, [gameData.timeRemaining]);
 
   // Reset game
   const resetGame = useCallback(() => {
@@ -138,7 +178,8 @@ export const useGameLogic = () => {
       gameState: "menu",
       totalQuestions: 0,
       correctAnswers: 0,
-      isJumping: false
+      isJumping: false,
+      currentQuestion: 0
     }));
   }, [timer]);
 
@@ -187,6 +228,8 @@ export const useGameLogic = () => {
     startGame,
     handleAnswer,
     resetGame,
+    pauseGame,
+    resumeGame,
     getRandomPositiveFeedback,
     handleAnimationComplete
   };
