@@ -84,8 +84,21 @@ export const GameBoard = () => {
               {t.gameTitle}
             </h1>
           </div>
-        </div>
+       
+          <div className="mt-3 text-center">
+           <a
+            href="https://youtu.be/dDbr6UNNUOQ"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-4 py-1 mt-2 rounded-md bg-blue-50 text-blue-600 hover:bg-blue-100 transition text-sm font-semibold"
+           >
+             🎥 Watch Video
+            </a>
+          </div>   
+        </div> 
+     </div>
 
+      
         {/* Controls Header */}
         <div className="flex justify-between items-center mb-4 p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-primary/20">
           <div className="flex gap-2">
