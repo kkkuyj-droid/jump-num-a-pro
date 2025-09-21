@@ -78,9 +78,9 @@ export const GameBoard = () => {
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-card p-2">
       <div className="max-w-6xl mx-auto">
         {/* Game Title Header - Prominent placement */}
-        <div className="text-center py-6 mb-4">
-          <div className="bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 rounded-2xl border-2 border-primary/30 p-6 glow-primary">
-            <h1 className="text-2xl lg:text-3xl font-bold magic-gradient bg-clip-text text-transparent drop-shadow-lg">
+        <div className="text-center py-8 mb-6">
+          <div className="bg-gradient-to-r from-purple-500/30 via-blue-500/30 to-purple-500/30 rounded-2xl border-2 border-purple-400/50 p-8 shadow-2xl">
+            <h1 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent drop-shadow-2xl">
               {t.gameTitle}
             </h1>
           </div>
@@ -191,7 +191,7 @@ export const GameBoard = () => {
                 <div className="text-center space-y-3">
                   <p className="text-lg font-bold text-primary">{t.listening}</p>
                   <div className="text-sm text-accent font-semibold">
-                    {t.questionCount} {gameData.currentQuestion} / {gameData.maxQuestions}
+                    {t.questionCount} {gameData.currentQuestion}
                   </div>
                   {gameData.animationComplete && (
                     <div className="space-y-2">
@@ -208,7 +208,7 @@ export const GameBoard = () => {
                     게임 일시정지
                   </p>
                   <div className="text-sm text-accent font-semibold">
-                    {t.questionCount} {gameData.currentQuestion} / {gameData.maxQuestions}
+                    {t.questionCount} {gameData.currentQuestion}
                   </div>
                 </div>
               )}
@@ -282,7 +282,7 @@ export const GameBoard = () => {
         {/* Background Music */}
         <BackgroundMusic
           isPlaying={gameData.gameState !== "menu" && musicEnabled}
-          volume={0.08}
+          volume={0.15}
         />
         
         {/* Audio Manager */}

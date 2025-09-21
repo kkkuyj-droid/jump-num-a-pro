@@ -31,14 +31,16 @@ export const useGameLogic = () => {
     isJumping: false,
     animationComplete: false,
     currentQuestion: 0,
-    maxQuestions: 10
+    maxQuestions: 999
   });
 
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
   // Generate random number from 1-10
   const generateRandomNumber = useCallback(() => {
-    return Math.floor(Math.random() * 10) + 1;
+    // Better randomization to ensure all numbers 1-10 appear more evenly
+    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    return numbers[Math.floor(Math.random() * numbers.length)];
   }, []);
 
   // Start new round
@@ -109,8 +111,8 @@ export const useGameLogic = () => {
         localStorage.setItem("jumpRopeHighScore", newScore.toString());
       }
 
-      // Check if game should end (10 questions completed or wrong answer)
-      const shouldEndGame = !isCorrect || prev.currentQuestion >= prev.maxQuestions;
+      // Game only ends on wrong answer, not on question count
+      const shouldEndGame = !isCorrect;
 
       return {
         ...prev,
@@ -123,8 +125,8 @@ export const useGameLogic = () => {
       };
     });
 
-    // If correct and not at max questions, continue to next round
-    if (isCorrect && gameData.currentQuestion < gameData.maxQuestions) {
+    // If correct, continue to next round
+    if (isCorrect) {
       setTimeout(() => {
         startNewRound();
       }, 2000);
