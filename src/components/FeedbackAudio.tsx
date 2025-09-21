@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { getRandomPositiveFeedback } from "@/utils/audioData";
 
 interface FeedbackAudioProps {
@@ -7,8 +7,11 @@ interface FeedbackAudioProps {
 }
 
 export const FeedbackAudio = ({ shouldPlayFeedback, onComplete }: FeedbackAudioProps) => {
+  const hasPlayedRef = useRef(false);
+
   useEffect(() => {
-    if (shouldPlayFeedback) {
+    if (shouldPlayFeedback && !hasPlayedRef.current) {
+      hasPlayedRef.current = true;
       const feedback = getRandomPositiveFeedback();
       
       const utterance = new SpeechSynthesisUtterance(feedback);
@@ -27,10 +30,12 @@ export const FeedbackAudio = ({ shouldPlayFeedback, onComplete }: FeedbackAudioP
       }
 
       utterance.onend = () => {
+        hasPlayedRef.current = false;
         onComplete?.();
       };
 
       utterance.onerror = () => {
+        hasPlayedRef.current = false;
         onComplete?.();
       };
 
@@ -38,6 +43,11 @@ export const FeedbackAudio = ({ shouldPlayFeedback, onComplete }: FeedbackAudioP
       setTimeout(() => {
         speechSynthesis.speak(utterance);
       }, 500);
+    }
+    
+    // Reset flag when shouldPlayFeedback becomes false
+    if (!shouldPlayFeedback) {
+      hasPlayedRef.current = false;
     }
   }, [shouldPlayFeedback, onComplete]);
 
