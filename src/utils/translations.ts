@@ -22,7 +22,7 @@ export const translations: Record<string, Translation> = {
   ko: {
     score: "점수",
     highScore: "최고 점수",
-    gameTitle: "줄넘기 하나부터 열까지 세기",
+    gameTitle: "줄넘기 하나부터 열까지 숫자 듣기 게임",
     gameDescription: "음성을 듣고 올바른 숫자 키를 눌러주세요!",
     languageSelect: "언어 선택",
     playAgain: "다시 하기",
@@ -41,7 +41,7 @@ export const translations: Record<string, Translation> = {
   en: {
     score: "Score",
     highScore: "High Score",
-    gameTitle: "Jump Rope Counting 1 to 10",
+    gameTitle: "Jump Rope Number Listening Game 1-10",
     gameDescription: "Listen to Korean audio and press the correct number key!",
     languageSelect: "Select Language",
     playAgain: "Play Again",
@@ -60,7 +60,7 @@ export const translations: Record<string, Translation> = {
   ja: {
     score: "スコア",
     highScore: "ハイスコア",
-    gameTitle: "韓国語数字リスニングゲーム",
+    gameTitle: "縄跳び数字リスニングゲーム 1-10",
     gameDescription: "韓国語の音声を聞いて正しい数字キーを押してください！",
     languageSelect: "言語選択",
     playAgain: "もう一度",
@@ -79,7 +79,7 @@ export const translations: Record<string, Translation> = {
   zh: {
     score: "分数",
     highScore: "最高分",
-    gameTitle: "韩语数字听力游戏",
+    gameTitle: "跳绳数字听力游戏 1-10",
     gameDescription: "听韩语音频并按正确的数字键！",
     languageSelect: "选择语言",
     playAgain: "再玩一次",
@@ -98,7 +98,7 @@ export const translations: Record<string, Translation> = {
   vi: {
     score: "Điểm số",
     highScore: "Điểm cao nhất",
-    gameTitle: "Game Nghe Số Tiếng Hàn",
+    gameTitle: "Game Nhảy Dây Nghe Số 1-10",
     gameDescription: "Nghe âm thanh tiếng Hàn và nhấn phím số đúng!",
     languageSelect: "Chọn Ngôn ngữ",
     playAgain: "Chơi lại",
@@ -117,7 +117,7 @@ export const translations: Record<string, Translation> = {
   es: {
     score: "Puntuación",
     highScore: "Puntuación máxima",
-    gameTitle: "Juego de Escucha de Números en Coreano",
+    gameTitle: "Juego de Saltar Cuerda y Escuchar Números 1-10",
     gameDescription: "¡Escucha el audio en coreano y presiona la tecla numérica correcta!",
     languageSelect: "Seleccionar idioma",
     playAgain: "Jugar de nuevo",
