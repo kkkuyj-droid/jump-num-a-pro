@@ -116,7 +116,7 @@ export const GameBoard = () => {
                 size="sm"
                 className="text-xs"
               >
-                {t.resumeGame}
+                계속하기
               </Button>
             )}
             {(gameData.gameState !== "menu") && (
