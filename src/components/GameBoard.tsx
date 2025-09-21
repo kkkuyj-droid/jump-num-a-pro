@@ -195,7 +195,7 @@ export const GameBoard = () => {
                   </div>
                   {gameData.animationComplete && (
                     <div className="space-y-2">
-                      <p className="text-sm text-muted-foreground">{t.timeRemaining}: {gameData.timeRemaining}초</p>
+                      <p className="text-sm text-muted-foreground">{t.timeRemaining}: {gameData.timeRemaining}{t.seconds}</p>
                       <Progress value={progressPercentage} className="w-full" />
                     </div>
                   )}
@@ -271,7 +271,7 @@ export const GameBoard = () => {
               <h3 className="text-base font-bold mb-2 text-foreground">{t.gameDescription}</h3>
               <ul className="space-y-1 text-xs text-muted-foreground list-disc list-inside">
                 <li>{t.listening}...</li>
-                <li>{t.timeRemaining}: 5초</li>
+                <li>{t.timeRemaining}: 5{t.seconds}</li>
                 <li>{t.yourAnswer}</li>
                 <li>{t.highScore}!</li>
               </ul>
