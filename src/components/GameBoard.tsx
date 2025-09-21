@@ -7,11 +7,16 @@ import { LanguageSelector } from "./LanguageSelector";
 import { ScoreDisplay } from "./ScoreDisplay";
 import { JumpRopeAnimation } from "./JumpRopeAnimation";
 import { AudioManager } from "./AudioManager";
+import { SoundEffects } from "./SoundEffects";
+import { FeedbackAudio } from "./FeedbackAudio";
 import { useGameLogic } from "@/hooks/useGameLogic";
 import { getTranslation } from "@/utils/translations";
 
 export const GameBoard = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("ko");
+  const [playCorrectSound, setPlayCorrectSound] = useState(false);
+  const [playIncorrectSound, setPlayIncorrectSound] = useState(false);
+  const [playFeedback, setPlayFeedback] = useState(false);
   
   const { gameData, startGame, handleAnswer, resetGame, getRandomPositiveFeedback } = useGameLogic();
   const t = getTranslation(selectedLanguage);
@@ -38,6 +43,8 @@ export const GameBoard = () => {
   useEffect(() => {
     if (gameData.gameState === "waiting") {
       const feedback = getRandomPositiveFeedback();
+      setPlayCorrectSound(true);
+      setPlayFeedback(true);
       toast({
         title: t.correct,
         description: feedback,
@@ -49,6 +56,7 @@ export const GameBoard = () => {
   // Handle game over
   useEffect(() => {
     if (gameData.gameState === "gameOver") {
+      setPlayIncorrectSound(true);
       toast({
         title: t.timeUp,
         description: `${t.finalScore}: ${gameData.score}`,
@@ -176,10 +184,13 @@ export const GameBoard = () => {
                     key={number}
                     onClick={() => handleAnswer(number)}
                     disabled={gameData.gameState !== "listening"}
-                    variant={gameData.gameState === "listening" ? "default" : "secondary"}
-                    className="h-12 text-lg font-bold hover:scale-105 transition-transform"
+                    className={`h-14 text-xl font-bold transition-all duration-200 transform ${
+                      gameData.gameState === "listening" 
+                        ? 'bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg hover:shadow-xl hover:scale-110 hover:from-primary/90 hover:to-primary border-2 border-primary/30' 
+                        : 'bg-muted text-muted-foreground cursor-not-allowed'
+                    } ${number === gameData.currentNumber && gameData.gameState === "waiting" ? 'ring-4 ring-success animate-pulse' : ''}`}
                   >
-                    {number}
+                    <span className="drop-shadow-sm">{number}</span>
                   </Button>
                 ))}
               </div>
@@ -203,6 +214,22 @@ export const GameBoard = () => {
           text={gameData.currentText}
           shouldPlay={gameData.gameState === "listening"}
           voice="male"
+        />
+        
+        {/* Sound Effects */}
+        <SoundEffects
+          playCorrectSound={playCorrectSound}
+          playIncorrectSound={playIncorrectSound}
+          onSoundComplete={() => {
+            setPlayCorrectSound(false);
+            setPlayIncorrectSound(false);
+          }}
+        />
+        
+        {/* Feedback Audio */}
+        <FeedbackAudio
+          shouldPlayFeedback={playFeedback}
+          onComplete={() => setPlayFeedback(false)}
         />
       </div>
     </div>
