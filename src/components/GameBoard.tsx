@@ -282,7 +282,7 @@ export const GameBoard = () => {
         {/* Background Music */}
         <BackgroundMusic
           isPlaying={gameData.gameState !== "menu" && musicEnabled}
-          volume={0.15}
+          volume={0.08}
         />
         
         {/* Audio Manager */}
