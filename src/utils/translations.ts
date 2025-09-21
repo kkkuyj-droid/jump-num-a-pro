@@ -136,8 +136,5 @@ export const translations: Record<string, Translation> = {
 };
 
 export const getTranslation = (lang: string): Translation => {
-  console.log('Getting translation for language:', lang);
-  const translation = translations[lang] || translations.ko;
-  console.log('Translation result:', translation);
-  return translation;
+  return translations[lang] || translations.ko;
 };
