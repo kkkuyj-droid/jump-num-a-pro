@@ -23,6 +23,7 @@ export interface Translation {
   questionCount: string;
   gameStarting: string;
   preparingNext: string;
+  gameOver: string;
 }
 
 export const translations: Record<string, Translation> = {
@@ -50,7 +51,8 @@ export const translations: Record<string, Translation> = {
     musicOff: "음악 끄기",
     questionCount: "문제",
     gameStarting: "게임을 시작합니다...",
-    preparingNext: "다음 문제를 준비하고 있습니다..."
+    preparingNext: "다음 문제를 준비하고 있습니다...",
+    gameOver: "게임 종료!"
   },
   en: {
     score: "Score",
@@ -76,7 +78,8 @@ export const translations: Record<string, Translation> = {
     resetGame: "Reset Game", 
     musicOn: "Music On",
     musicOff: "Music Off",
-    questionCount: "Question"
+    questionCount: "Question",
+    gameOver: "Game Over!"
   },
   ja: {
     score: "スコア",
@@ -102,7 +105,8 @@ export const translations: Record<string, Translation> = {
     musicOff: "音楽オフ",
     questionCount: "問題",
     gameStarting: "ゲームを開始します...",
-    preparingNext: "次の問題を準備しています..."
+    preparingNext: "次の問題を準備しています...",
+    gameOver: "ゲーム終了！"
   },
   zh: {
     score: "分数",
@@ -128,7 +132,8 @@ export const translations: Record<string, Translation> = {
     musicOff: "关闭音乐",
     questionCount: "问题",
     gameStarting: "正在开始游戏...",
-    preparingNext: "正在准备下一个问题..."
+    preparingNext: "正在准备下一个问题...",
+    gameOver: "游戏结束！"
   },
   vi: {
     score: "Điểm số",
@@ -154,7 +159,8 @@ export const translations: Record<string, Translation> = {
     musicOff: "Tắt nhạc",
     questionCount: "Câu hỏi",
     gameStarting: "Đang bắt đầu trò chơi...",
-    preparingNext: "Đang chuẩn bị câu hỏi tiếp theo..."
+    preparingNext: "Đang chuẩn bị câu hỏi tiếp theo...",
+    gameOver: "Hết game!"
   },
   es: {
     score: "Puntuación",
@@ -180,7 +186,8 @@ export const translations: Record<string, Translation> = {
     musicOff: "Música apagada",
     questionCount: "Pregunta",
     gameStarting: "Iniciando el juego...",
-    preparingNext: "Preparando la siguiente pregunta..."
+    preparingNext: "Preparando la siguiente pregunta...",
+    gameOver: "¡Juego terminado!"
   }
 };
 

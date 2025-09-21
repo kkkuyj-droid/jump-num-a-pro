@@ -224,7 +224,7 @@ export const GameBoard = () => {
 
               {gameData.gameState === "gameOver" && (
                 <div className="text-center space-y-4">
-                  <h2 className="text-xl font-bold text-destructive">게임 종료!</h2>
+                  <h2 className="text-xl font-bold text-destructive">{t.gameOver}</h2>
                   <div className="space-y-2">
                     <p className="text-lg">{t.finalScore}: <span className="font-bold text-primary">{gameData.score}</span></p>
                     <p className="text-sm text-muted-foreground">
