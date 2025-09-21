@@ -43,11 +43,7 @@ export const koreanNumbers = [
 ];
 
 export const positiveFeeds = [
-  "좋아요!",  
-  "훌륭해요!",
-  "맞았어요!", 
-  "대단해요!",
-  "최고예요!"
+  "좋아요!"
 ];
 
 export const getRandomVariation = (number: number): string => {
