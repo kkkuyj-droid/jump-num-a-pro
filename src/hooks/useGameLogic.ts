@@ -13,6 +13,7 @@ export interface GameData {
   totalQuestions: number;
   correctAnswers: number;
   isJumping: boolean;
+  animationComplete: boolean;
 }
 
 export const useGameLogic = () => {
@@ -25,7 +26,8 @@ export const useGameLogic = () => {
     gameState: "menu",
     totalQuestions: 0,
     correctAnswers: 0,
-    isJumping: false
+    isJumping: false,
+    animationComplete: false
   });
 
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
@@ -46,22 +48,14 @@ export const useGameLogic = () => {
       currentText: newText,
       timeRemaining: 5,
       gameState: "listening",
-      isJumping: true
+      isJumping: true,
+      animationComplete: false
     }));
 
     // Clear existing timer
     if (timer) clearTimeout(timer);
 
-    // Set new timer for 5 seconds
-    const newTimer = setTimeout(() => {
-      setGameData(prev => ({
-        ...prev,
-        gameState: "gameOver",
-        isJumping: false
-      }));
-    }, 5000);
-
-    setTimer(newTimer);
+    // Animation will trigger audio, timer starts after animation
   }, [generateRandomNumber, timer]);
 
   // Start game
@@ -160,11 +154,31 @@ export const useGameLogic = () => {
     };
   }, [timer]);
 
+  // Animation complete handler
+  const handleAnimationComplete = useCallback(() => {
+    setGameData(prev => ({
+      ...prev,
+      animationComplete: true
+    }));
+
+    // Start timer after animation completes
+    const newTimer = setTimeout(() => {
+      setGameData(prev => ({
+        ...prev,
+        gameState: "gameOver",
+        isJumping: false
+      }));
+    }, 5000);
+
+    setTimer(newTimer);
+  }, []);
+
   return {
     gameData,
     startGame,
     handleAnswer,
     resetGame,
-    getRandomPositiveFeedback
+    getRandomPositiveFeedback,
+    handleAnimationComplete
   };
 };

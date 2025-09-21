@@ -43,7 +43,6 @@ export const koreanNumbers = [
 ];
 
 export const positiveFeeds = [
-  "잘했어요!",
   "좋아요!",  
   "훌륭해요!",
   "맞았어요!", 

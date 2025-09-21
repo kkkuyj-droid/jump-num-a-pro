@@ -18,7 +18,7 @@ export const GameBoard = () => {
   const [playIncorrectSound, setPlayIncorrectSound] = useState(false);
   const [playFeedback, setPlayFeedback] = useState(false);
   
-  const { gameData, startGame, handleAnswer, resetGame, getRandomPositiveFeedback } = useGameLogic();
+  const { gameData, startGame, handleAnswer, resetGame, getRandomPositiveFeedback, handleAnimationComplete } = useGameLogic();
   const t = getTranslation(selectedLanguage);
 
   // Handle keyboard input
@@ -73,12 +73,12 @@ export const GameBoard = () => {
   const progressPercentage = ((5 - gameData.timeRemaining) / 5) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-accent/10 p-2">
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-card p-2">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-4 p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-primary/20 glow-primary">
           <div className="flex-1" />
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h1 className="text-2xl font-bold magic-gradient bg-clip-text text-transparent drop-shadow-lg">
             {t.gameTitle}
           </h1>
           <div className="flex-1 flex justify-end">
@@ -92,11 +92,13 @@ export const GameBoard = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-[calc(100vh-120px)]">
           {/* Left: Score Display */}
           <div className="lg:col-span-1">
-            <ScoreDisplay 
-              currentScore={gameData.score}
-              highScore={gameData.highScore}
-              language={selectedLanguage}
-            />
+            <div className="bg-card/70 backdrop-blur-sm border border-accent/30 rounded-xl p-4 glow-accent">
+              <ScoreDisplay 
+                currentScore={gameData.score}
+                highScore={gameData.highScore}
+                language={selectedLanguage}
+              />
+            </div>
           </div>
 
           {/* Center: Game Area */}
@@ -104,10 +106,11 @@ export const GameBoard = () => {
             <JumpRopeAnimation 
               isJumping={gameData.isJumping} 
               jumpCount={gameData.gameState === "listening" ? gameData.currentNumber : 0}
+              onAnimationComplete={handleAnimationComplete}
             />
 
             {/* Game Status Card */}
-            <Card className="p-4 bg-white/80 backdrop-blur-sm border-2 border-accent/30 h-fit">
+            <Card className="p-4 bg-card/70 backdrop-blur-sm border border-primary/30 h-fit glow-primary">
               {gameData.gameState === "menu" && (
                 <div className="text-center space-y-4">
                   <h2 className="text-xl font-bold text-foreground">{t.startGame}</h2>
@@ -117,7 +120,7 @@ export const GameBoard = () => {
                   <Button 
                     onClick={handleStartGame}
                     size="lg"
-                    className="bg-gradient-to-r from-primary to-accent text-white font-bold px-6 py-3 hover:scale-105 transition-transform"
+                    className="magic-gradient text-background font-bold px-6 py-3 hover:scale-105 transition-transform shadow-lg glow-primary"
                   >
                     {t.startGame}
                   </Button>
@@ -135,11 +138,15 @@ export const GameBoard = () => {
               {gameData.gameState === "listening" && (
                 <div className="text-center space-y-3">
                   <p className="text-lg font-bold text-primary">{t.listening}</p>
-                  <p className="text-base text-muted-foreground">"{gameData.currentText}"</p>
-                  <div className="space-y-2">
-                    <p className="text-sm text-muted-foreground">{t.timeRemaining}: {gameData.timeRemaining}초</p>
-                    <Progress value={progressPercentage} className="w-full" />
-                  </div>
+                  {gameData.animationComplete && (
+                    <>
+                      <p className="text-base text-accent">"{gameData.currentText}"</p>
+                      <div className="space-y-2">
+                        <p className="text-sm text-muted-foreground">{t.timeRemaining}: {gameData.timeRemaining}초</p>
+                        <Progress value={progressPercentage} className="w-full" />
+                      </div>
+                    </>
+                  )}
                 </div>
               )}
 
@@ -164,7 +171,7 @@ export const GameBoard = () => {
                   <Button 
                     onClick={resetGame}
                     size="lg"
-                    className="bg-gradient-to-r from-accent to-primary text-white font-bold px-6 py-3 hover:scale-105 transition-transform"
+                    className="magic-gradient text-background font-bold px-6 py-3 hover:scale-105 transition-transform shadow-lg glow-accent"
                   >
                     {t.playAgain}
                   </Button>
@@ -176,7 +183,7 @@ export const GameBoard = () => {
           {/* Right: Number Buttons & Instructions */}
           <div className="lg:col-span-1 space-y-4">
             {/* Number Buttons */}
-            <Card className="p-4 bg-white/80 backdrop-blur-sm border-2 border-accent/30">
+            <Card className="p-4 bg-card/70 backdrop-blur-sm border border-accent/30 glow-accent">
               <h3 className="text-lg font-bold mb-3 text-center text-foreground">숫자 버튼</h3>
               <div className="grid grid-cols-2 gap-2">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
@@ -186,7 +193,7 @@ export const GameBoard = () => {
                     disabled={gameData.gameState !== "listening"}
                     className={`h-14 text-xl font-bold transition-all duration-200 transform ${
                       gameData.gameState === "listening" 
-                        ? 'bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg hover:shadow-xl hover:scale-110 hover:from-primary/90 hover:to-primary border-2 border-primary/30' 
+                        ? 'magic-gradient text-background shadow-lg hover:shadow-xl hover:scale-110 border-2 border-primary/30 glow-primary' 
                         : 'bg-muted text-muted-foreground cursor-not-allowed'
                     } ${number === gameData.currentNumber && gameData.gameState === "waiting" ? 'ring-4 ring-success animate-pulse' : ''}`}
                   >
@@ -197,11 +204,11 @@ export const GameBoard = () => {
             </Card>
 
             {/* Game Instructions */}
-            <Card className="p-4 bg-white/60 backdrop-blur-sm border border-accent/20">
+            <Card className="p-4 bg-card/50 backdrop-blur-sm border border-accent/20">
               <h3 className="text-base font-bold mb-2 text-foreground">게임 설명</h3>
               <ul className="space-y-1 text-xs text-muted-foreground list-disc list-inside">
-                <li>음성으로 한국어 숫자를 들려드립니다</li>
-                <li>5초 안에 정답을 입력하세요</li>
+                <li>줄넘기 애니메이션을 확인하세요</li>
+                <li>음성을 듣고 정답을 선택하세요</li>
                 <li>키보드 또는 버튼을 사용하세요</li>
                 <li>최고 점수에 도전하세요!</li>
               </ul>
@@ -212,7 +219,7 @@ export const GameBoard = () => {
         {/* Audio Manager */}
         <AudioManager
           text={gameData.currentText}
-          shouldPlay={gameData.gameState === "listening"}
+          shouldPlay={gameData.gameState === "listening" && gameData.animationComplete}
           voice="male"
         />
         

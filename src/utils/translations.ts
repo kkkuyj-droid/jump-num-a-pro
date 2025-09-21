@@ -22,7 +22,7 @@ export const translations: Record<string, Translation> = {
   ko: {
     score: "점수",
     highScore: "최고 점수",
-    gameTitle: "한국어 숫자 듣기 게임",
+    gameTitle: "줄넘기 하나부터 열까지 세기",
     gameDescription: "음성을 듣고 올바른 숫자 키를 눌러주세요!",
     languageSelect: "언어 선택",
     playAgain: "다시 하기",
@@ -41,7 +41,7 @@ export const translations: Record<string, Translation> = {
   en: {
     score: "Score",
     highScore: "High Score",
-    gameTitle: "Korean Number Listening Game",
+    gameTitle: "Jump Rope Counting 1 to 10",
     gameDescription: "Listen to Korean audio and press the correct number key!",
     languageSelect: "Select Language",
     playAgain: "Play Again",

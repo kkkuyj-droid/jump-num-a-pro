@@ -3,99 +3,107 @@ import { useState, useEffect } from "react";
 interface JumpRopeAnimationProps {
   isJumping: boolean;
   jumpCount?: number;
+  onAnimationComplete?: () => void;
 }
 
-export const JumpRopeAnimation = ({ isJumping, jumpCount = 0 }: JumpRopeAnimationProps) => {
+export const JumpRopeAnimation = ({ isJumping, jumpCount = 0, onAnimationComplete }: JumpRopeAnimationProps) => {
   const [currentJumps, setCurrentJumps] = useState(0);
-  const [animationPhase, setAnimationPhase] = useState<'up' | 'down'>('down');
+  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     if (isJumping && jumpCount > 0) {
       setCurrentJumps(0);
-      const interval = setInterval(() => {
-        setCurrentJumps(prev => {
-          if (prev >= jumpCount) {
+      setIsAnimating(true);
+      
+      const animateJumps = () => {
+        let jumps = 0;
+        const interval = setInterval(() => {
+          jumps++;
+          setCurrentJumps(jumps);
+          
+          if (jumps >= jumpCount) {
             clearInterval(interval);
-            return prev;
+            setIsAnimating(false);
+            setTimeout(() => {
+              onAnimationComplete?.();
+            }, 500); // Small delay before audio
           }
-          return prev + 1;
-        });
-        
-        // Toggle animation phase for jump rope effect
-        setAnimationPhase(prev => prev === 'up' ? 'down' : 'up');
-      }, 600);
+        }, 600);
 
-      return () => clearInterval(interval);
+        return interval;
+      };
+
+      const intervalId = animateJumps();
+      return () => clearInterval(intervalId);
     } else {
       setCurrentJumps(0);
-      setAnimationPhase('down');
+      setIsAnimating(false);
     }
-  }, [isJumping, jumpCount]);
-
-  const isActive = isJumping && currentJumps < jumpCount;
+  }, [isJumping, jumpCount, onAnimationComplete]);
 
   return (
-    <div className="relative flex justify-center items-center h-40">
+    <div className="relative flex justify-center items-center h-48 mb-4">
+      {/* Magical floating particles */}
+      <div className="absolute inset-0">
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-2 h-2 bg-primary/30 rounded-full animate-float"
+            style={{
+              left: `${20 + i * 10}%`,
+              top: `${30 + (i % 3) * 20}%`,
+              animationDelay: `${i * 0.3}s`
+            }}
+          />
+        ))}
+      </div>
+
       <div className="relative">
-        {/* Glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-accent/30 rounded-full blur-lg animate-pulse-glow" />
+        {/* Main glow effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/40 to-accent/40 rounded-full blur-2xl animate-magic-glow" />
         
-        {/* Jump rope character */}
-        <div className={`relative transition-all duration-300 ${
-          isActive && animationPhase === 'up' ? 'transform -translate-y-4' : ''
-        }`}>
-          {/* Character body */}
-          <div className="w-16 h-24 bg-primary rounded-t-full relative">
-            {/* Head */}
-            <div className="w-10 h-10 bg-primary-foreground rounded-full absolute -top-5 left-1/2 transform -translate-x-1/2" />
-            
-            {/* Arms holding jump rope handles */}
-            <div className={`absolute top-1 -left-3 w-6 h-10 bg-accent rounded-full transition-transform duration-300 ${
-              isActive ? 'transform rotate-45' : 'transform rotate-12'
-            }`} />
-            <div className={`absolute top-1 -right-3 w-6 h-10 bg-accent rounded-full transition-transform duration-300 ${
-              isActive ? 'transform -rotate-45' : 'transform -rotate-12'
-            }`} />
-            
-            {/* Legs */}
-            <div className={`absolute -bottom-10 left-3 w-4 h-10 bg-primary rounded-full transition-transform duration-300 ${
-              isActive && animationPhase === 'up' ? 'transform rotate-20' : ''
-            }`} />
-            <div className={`absolute -bottom-10 right-3 w-4 h-10 bg-primary rounded-full transition-transform duration-300 ${
-              isActive && animationPhase === 'up' ? 'transform -rotate-20' : ''
-            }`} />
+        {/* Jump rope visualization */}
+        <div className="relative w-32 h-32 flex items-center justify-center">
+          {/* Rope path - animated circle */}
+          <div 
+            className={`absolute w-28 h-28 border-4 rounded-full transition-all duration-300 ${
+              isAnimating && currentJumps < jumpCount
+                ? 'border-accent animate-rope-spin shadow-[0_0_20px_hsl(var(--accent))]' 
+                : 'border-primary/50'
+            }`}
+          />
+          
+          {/* Center jumping element */}
+          <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+            isAnimating && currentJumps < jumpCount
+              ? 'bg-gradient-to-br from-primary to-accent shadow-[0_0_30px_hsl(var(--primary))] transform -translate-y-2' 
+              : 'bg-gradient-to-br from-primary/70 to-accent/70'
+          }`}>
+            {/* Inner core */}
+            <div className="w-6 h-6 bg-foreground rounded-full" />
           </div>
           
-          {/* Jump rope - animated rope path */}
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-32">
-            {/* Rope path */}
-            <svg className="w-full h-full" viewBox="0 0 128 128">
-              <path
-                d={isActive && animationPhase === 'up' 
-                  ? "M 20 20 Q 64 10 108 20 Q 64 100 20 20" 
-                  : "M 20 20 Q 64 80 108 20"
-                }
-                stroke="hsl(var(--accent))"
-                strokeWidth="4"
-                fill="none"
-                className="transition-all duration-300"
-              />
-            </svg>
-            
-            {/* Rope handles */}
-            <div className="absolute top-4 left-4 w-3 h-6 bg-accent rounded-full" />
-            <div className="absolute top-4 right-4 w-3 h-6 bg-accent rounded-full" />
-          </div>
+          {/* Rope handles */}
+          <div className={`absolute -left-2 top-1/2 w-4 h-8 rounded-full transition-all duration-300 ${
+            isAnimating ? 'bg-accent rotate-12' : 'bg-primary/70'
+          }`} />
+          <div className={`absolute -right-2 top-1/2 w-4 h-8 rounded-full transition-all duration-300 ${
+            isAnimating ? 'bg-accent -rotate-12' : 'bg-primary/70'
+          }`} />
         </div>
         
-        {/* Jump counter display */}
-        <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 text-center">
-          <div className="bg-primary text-primary-foreground rounded-full w-12 h-12 flex items-center justify-center font-bold text-lg animate-bounce">
-            {currentJumps}
+        {/* Jump counter with magical effect */}
+        <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 text-center">
+          <div className="relative">
+            <div className="magic-gradient rounded-full w-16 h-16 flex items-center justify-center font-bold text-2xl text-background shadow-lg glow-primary">
+              {currentJumps}
+            </div>
+            {jumpCount > 0 && (
+              <div className="text-sm text-accent font-semibold mt-2 drop-shadow-lg">
+                / {jumpCount}
+              </div>
+            )}
           </div>
-          {jumpCount > 0 && (
-            <div className="text-xs text-muted-foreground mt-1">/ {jumpCount}</div>
-          )}
         </div>
       </div>
     </div>
