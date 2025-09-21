@@ -22,6 +22,9 @@ export const GameBoard = () => {
   const { gameData, startGame, handleAnswer, resetGame, getRandomPositiveFeedback, handleAnimationComplete } = useGameLogic();
   const t = getTranslation(selectedLanguage);
 
+  console.log('Current language:', selectedLanguage);
+  console.log('Translation object:', t);
+
   // Handle keyboard input
   const handleKeyPress = useCallback((event: KeyboardEvent) => {
     if (gameData.gameState !== "listening") return;

@@ -28,12 +28,12 @@ export const LanguageSelector = ({ selectedLanguage, onLanguageChange }: Languag
             </div>
           </SelectValue>
         </SelectTrigger>
-        <SelectContent className="bg-card/95 backdrop-blur-sm border border-border">
+        <SelectContent className="z-50 bg-card border-2 border-primary/30 shadow-xl backdrop-blur-sm">
           {languages.map((lang) => (
             <SelectItem 
               key={lang.code} 
               value={lang.code}
-              className="hover:bg-accent/20 cursor-pointer transition-colors text-foreground"
+              className="hover:bg-primary/20 cursor-pointer transition-colors text-foreground focus:bg-primary/20"
             >
               <div className="flex items-center gap-2">
                 <span className="text-lg">{lang.flag}</span>
