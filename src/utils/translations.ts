@@ -21,6 +21,8 @@ export interface Translation {
   musicOn: string;
   musicOff: string;
   questionCount: string;
+  gameStarting: string;
+  preparingNext: string;
 }
 
 export const translations: Record<string, Translation> = {
@@ -46,12 +48,16 @@ export const translations: Record<string, Translation> = {
     resetGame: "게임 리셋",
     musicOn: "음악 켜기",
     musicOff: "음악 끄기",
-    questionCount: "문제"
+    questionCount: "문제",
+    gameStarting: "게임을 시작합니다...",
+    preparingNext: "다음 문제를 준비하고 있습니다..."
   },
   en: {
     score: "Score",
     highScore: "High Score",
     gameTitle: "Korean Numbers 1-10 Listening Game",
+    gameStarting: "Starting the game...",
+    preparingNext: "Preparing the next question...",
     gameDescription: "Listen to Korean audio and press the correct number key!",
     languageSelect: "Select Language",
     playAgain: "Play Again",
@@ -94,7 +100,9 @@ export const translations: Record<string, Translation> = {
     resetGame: "ゲームリセット",
     musicOn: "音楽オン",
     musicOff: "音楽オフ",
-    questionCount: "問題"
+    questionCount: "問題",
+    gameStarting: "ゲームを開始します...",
+    preparingNext: "次の問題を準備しています..."
   },
   zh: {
     score: "分数",
@@ -118,7 +126,9 @@ export const translations: Record<string, Translation> = {
     resetGame: "重置游戏",
     musicOn: "开启音乐",
     musicOff: "关闭音乐",
-    questionCount: "问题"
+    questionCount: "问题",
+    gameStarting: "正在开始游戏...",
+    preparingNext: "正在准备下一个问题..."
   },
   vi: {
     score: "Điểm số",
@@ -142,7 +152,9 @@ export const translations: Record<string, Translation> = {
     resetGame: "Khởi động lại",
     musicOn: "Bật nhạc",
     musicOff: "Tắt nhạc",
-    questionCount: "Câu hỏi"
+    questionCount: "Câu hỏi",
+    gameStarting: "Đang bắt đầu trò chơi...",
+    preparingNext: "Đang chuẩn bị câu hỏi tiếp theo..."
   },
   es: {
     score: "Puntuación",
@@ -166,7 +178,9 @@ export const translations: Record<string, Translation> = {
     resetGame: "Reiniciar juego",
     musicOn: "Música encendida",
     musicOff: "Música apagada",
-    questionCount: "Pregunta"
+    questionCount: "Pregunta",
+    gameStarting: "Iniciando el juego...",
+    preparingNext: "Preparando la siguiente pregunta..."
   }
 };
 

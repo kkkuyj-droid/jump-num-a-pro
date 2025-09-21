@@ -182,7 +182,7 @@ export const GameBoard = () => {
               {gameData.gameState === "playing" && (
                 <div className="text-center">
                   <p className="text-lg font-medium text-accent animate-pulse">
-                    게임을 시작합니다...
+                    {t.gameStarting}
                   </p>
                 </div>
               )}
@@ -218,7 +218,7 @@ export const GameBoard = () => {
                   <p className="text-xl font-bold text-success animate-bounce">
                     {t.wellDone}
                   </p>
-                  <p className="text-sm text-muted-foreground">다음 문제를 준비하고 있습니다...</p>
+                  <p className="text-sm text-muted-foreground">{t.preparingNext}</p>
                 </div>
               )}
 
