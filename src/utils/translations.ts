@@ -26,6 +26,7 @@ export interface Translation {
   preparingNext: string;
   gameOver: string;
   seconds: string;
+  chooseAnswer: string;
 }
 
 export const translations: Record<string, Translation> = {
@@ -56,7 +57,8 @@ export const translations: Record<string, Translation> = {
     gameStarting: "게임을 시작합니다...",
     preparingNext: "다음 문제를 준비하고 있습니다...",
     gameOver: "게임 종료!",
-    seconds: "초"
+    seconds: "초",
+    chooseAnswer: "정답 선택"
   },
   en: {
     score: "Score",
@@ -85,7 +87,8 @@ export const translations: Record<string, Translation> = {
     musicOff: "Music Off",
     questionCount: "Question",
     gameOver: "Game Over!",
-    seconds: "s"
+    seconds: "s",
+    chooseAnswer: "Choose an Answer"
   },
   ja: {
     score: "スコア",
@@ -114,7 +117,8 @@ export const translations: Record<string, Translation> = {
     gameStarting: "ゲームを開始します...",
     preparingNext: "次の問題を準備しています...",
     gameOver: "ゲーム終了！",
-    seconds: "秒"
+    seconds: "秒",
+    chooseAnswer: "答えを選択"
   },
   zh: {
     score: "分数",
@@ -143,7 +147,8 @@ export const translations: Record<string, Translation> = {
     gameStarting: "正在开始游戏...",
     preparingNext: "正在准备下一个问题...",
     gameOver: "游戏结束！",
-    seconds: "秒"
+    seconds: "秒",
+    chooseAnswer: "选择答案"
   },
   vi: {
     score: "Điểm số",
@@ -172,7 +177,8 @@ export const translations: Record<string, Translation> = {
     gameStarting: "Đang bắt đầu trò chơi...",
     preparingNext: "Đang chuẩn bị câu hỏi tiếp theo...",
     gameOver: "Hết game!",
-    seconds: "giây"
+    seconds: "giây",
+    chooseAnswer: "Chọn Đáp Án"
   },
   es: {
     score: "Puntuación",
@@ -201,7 +207,8 @@ export const translations: Record<string, Translation> = {
     gameStarting: "Iniciando el juego...",
     preparingNext: "Preparando la siguiente pregunta...",
     gameOver: "¡Juego terminado!",
-    seconds: "seg"
+    seconds: "seg",
+    chooseAnswer: "Selecciona una respuesta"
   }
 };
 
