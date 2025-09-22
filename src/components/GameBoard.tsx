@@ -57,8 +57,17 @@ export const GameBoard = () => {
 
   // Handle game over
   useEffect(() => {
-    if (gameData.gameState === "gameOver") {
-      setPlayIncorrectSound(true);
+  if (gameData.gameState === "gameOver") {
+    setPlayIncorrectSound(true);
+
+    if (lastGameOverReason === "wrong") {
+      toast({
+        title: "틀렸어요!",
+        description: `${t.finalScore}: ${gameData.score}`,
+        variant: "destructive",
+        duration: 3000,
+      });
+    } else {
       toast({
         title: t.timeUp,
         description: `${t.finalScore}: ${gameData.score}`,
@@ -66,7 +75,8 @@ export const GameBoard = () => {
         duration: 3000,
       });
     }
-  }, [gameData.gameState, gameData.score, t.timeUp, t.finalScore]);
+  }
+}, [gameData.gameState, gameData.score, lastGameOverReason, t.timeUp, t.finalScore]);
 
   const handleStartGame = () => {
     startGame();
