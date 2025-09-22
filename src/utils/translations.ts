@@ -60,7 +60,7 @@ export const translations: Record<string, Translation> = {
     gameOver: "게임 종료!",
     seconds: "초",
     chooseAnswer: "정답 선택",
-    wrongAnswer: "틀렸어요!"
+    wrongAnswer: "오답!"
   },
   en: {
     score: "Score",
@@ -91,7 +91,7 @@ export const translations: Record<string, Translation> = {
     gameOver: "Game Over!",
     seconds: "s",
     chooseAnswer: "Choose an Answer",
-    wrongAnswer: "Wrong answer!"
+    wrongAnswer: "Incorrect!"
   },
   ja: {
     score: "スコア",
@@ -122,7 +122,7 @@ export const translations: Record<string, Translation> = {
     gameOver: "ゲーム終了！",
     seconds: "秒",
     chooseAnswer: "答えを選択",
-    wrongAnswer: "間違えました！"
+    wrongAnswer: "不正解！"
   },
   zh: {
     score: "分数",
@@ -153,7 +153,7 @@ export const translations: Record<string, Translation> = {
     gameOver: "游戏结束！",
     seconds: "秒",
     chooseAnswer: "选择答案",
-    wrongAnswer: "答错了！"
+    wrongAnswer: "錯誤！"
   },
   vi: {
     score: "Điểm số",
@@ -184,7 +184,7 @@ export const translations: Record<string, Translation> = {
     gameOver: "Hết game!",
     seconds: "giây",
     chooseAnswer: "Chọn Đáp Án",
-    wrongAnswer: "Sai rồi!"
+    wrongAnswer: "Sai!"
   },
   es: {
     score: "Puntuación",
