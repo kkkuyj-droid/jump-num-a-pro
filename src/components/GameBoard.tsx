@@ -20,7 +20,7 @@ export const GameBoard = () => {
   const [playFeedback, setPlayFeedback] = useState(false);
   const [musicEnabled, setMusicEnabled] = useState(true);
   
-  const { gameData, startGame, handleAnswer, resetGame, pauseGame, resumeGame, getRandomPositiveFeedback, handleAnimationComplete } = useGameLogic();
+  const { gameData, startGame, handleAnswer, resetGame, pauseGame, resumeGame, getRandomPositiveFeedback, handleAnimationComplete, lastGameOverReason } = useGameLogic();
   const t = getTranslation(selectedLanguage);
 
   // Handle keyboard input
