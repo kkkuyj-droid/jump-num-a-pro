@@ -62,7 +62,7 @@ export const GameBoard = () => {
 
     if (lastGameOverReason === "wrong") {
       toast({
-        title: "틀렸어요!",
+        title: t.wrongAnswer,
         description: `${t.finalScore}: ${gameData.score}`,
         variant: "destructive",
         duration: 3000,
