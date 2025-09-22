@@ -249,7 +249,7 @@ export const GameBoard = () => {
           <div className="lg:col-span-1 space-y-4">
             {/* Number Buttons */}
             <Card className="p-4 bg-card/70 backdrop-blur-sm border border-accent/30 glow-accent">
-              <h3 className="text-lg font-bold mb-3 text-center text-foreground">{t.gameInstructions}</h3>
+              <h3 className="text-lg font-bold mb-3 text-center text-foreground">{t.chooseAnswer}</h3>
               <div className="grid grid-cols-2 gap-2">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
                   <Button
