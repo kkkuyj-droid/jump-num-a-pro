@@ -310,6 +310,5 @@ export const GameBoard = () => {
           onComplete={() => setPlayFeedback(false)}
         />
      </div>
-  </div>
   );
 };
