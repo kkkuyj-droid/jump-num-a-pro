@@ -35,10 +35,10 @@ export const useGameLogic = () => {
   });
 
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+  const [lastGameOverReason, setLastGameOverReason] = useState<"timeout" | "wrong" | null>(null); // ✅ 추가
 
   // Generate random number from 1-10
   const generateRandomNumber = useCallback(() => {
-    // Better randomization to ensure all numbers 1-10 appear more evenly
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     return numbers[Math.floor(Math.random() * numbers.length)];
   }, []);
@@ -47,7 +47,7 @@ export const useGameLogic = () => {
   const startNewRound = useCallback(() => {
     const newNumber = generateRandomNumber();
     const newText = getRandomVariation(newNumber);
-    
+
     setGameData(prev => ({
       ...prev,
       currentNumber: newNumber,
@@ -59,11 +59,10 @@ export const useGameLogic = () => {
       currentQuestion: prev.currentQuestion + 1
     }));
 
-    // Clear existing timer
     if (timer) clearTimeout(timer);
 
-    // Start timer for 5 seconds immediately
     const newTimer = setTimeout(() => {
+      setLastGameOverReason("timeout"); // ✅ 시간 초과 이유 저장
       setGameData(prev => ({
         ...prev,
         gameState: "gameOver",
@@ -84,7 +83,7 @@ export const useGameLogic = () => {
       currentQuestion: 0,
       gameState: "playing"
     }));
-    
+
     setTimeout(() => {
       startNewRound();
     }, 1000);
@@ -94,24 +93,25 @@ export const useGameLogic = () => {
   const handleAnswer = useCallback((userAnswer: number) => {
     if (gameData.gameState !== "listening") return;
 
-    // Clear timer
     if (timer) {
       clearTimeout(timer);
       setTimer(null);
     }
 
     const isCorrect = userAnswer === gameData.currentNumber;
-    
+
+    if (!isCorrect) {
+      setLastGameOverReason("wrong"); // ✅ 오답 이유 저장
+    }
+
     setGameData(prev => {
       const newScore = isCorrect ? prev.score + 1 : prev.score;
       const newHighScore = Math.max(newScore, prev.highScore);
-      
-      // Save high score to localStorage
+
       if (newHighScore > prev.highScore) {
         localStorage.setItem("jumpRopeHighScore", newScore.toString());
       }
 
-      // Game only ends on wrong answer, not on question count
       const shouldEndGame = !isCorrect;
 
       return {
@@ -125,13 +125,12 @@ export const useGameLogic = () => {
       };
     });
 
-    // If correct, continue to next round
     if (isCorrect) {
       setTimeout(() => {
         startNewRound();
       }, 2000);
     }
-  }, [gameData.gameState, gameData.currentNumber, gameData.currentQuestion, gameData.maxQuestions, timer, startNewRound]);
+  }, [gameData.gameState, gameData.currentNumber, timer, startNewRound]);
 
   // Pause game
   const pauseGame = useCallback(() => {
@@ -152,8 +151,8 @@ export const useGameLogic = () => {
       gameState: "listening"
     }));
 
-    // Restart timer
     const newTimer = setTimeout(() => {
+      setLastGameOverReason("timeout"); // ✅ 이유 저장
       setGameData(prev => ({
         ...prev,
         gameState: "gameOver",
@@ -170,7 +169,7 @@ export const useGameLogic = () => {
       clearTimeout(timer);
       setTimer(null);
     }
-    
+
     setGameData(prev => ({
       ...prev,
       currentNumber: 0,
@@ -183,9 +182,10 @@ export const useGameLogic = () => {
       isJumping: false,
       currentQuestion: 0
     }));
+    setLastGameOverReason(null); // ✅ 초기화
   }, [timer]);
 
-  // Timer countdown effect
+  // Timer countdown
   useEffect(() => {
     if (gameData.gameState === "listening" && gameData.timeRemaining > 0) {
       const countdown = setTimeout(() => {
@@ -199,22 +199,22 @@ export const useGameLogic = () => {
     }
   }, [gameData.gameState, gameData.timeRemaining]);
 
-  // Cleanup timer on unmount
+  // Cleanup
   useEffect(() => {
     return () => {
       if (timer) clearTimeout(timer);
     };
   }, [timer]);
 
-  // Animation complete handler
+  // Animation complete
   const handleAnimationComplete = useCallback(() => {
     setGameData(prev => ({
       ...prev,
       animationComplete: true
     }));
 
-    // Start timer after animation completes
     const newTimer = setTimeout(() => {
+      setLastGameOverReason("timeout"); // ✅ 이유 저장
       setGameData(prev => ({
         ...prev,
         gameState: "gameOver",
@@ -233,6 +233,7 @@ export const useGameLogic = () => {
     pauseGame,
     resumeGame,
     getRandomPositiveFeedback,
-    handleAnimationComplete
+    handleAnimationComplete,
+    lastGameOverReason // ✅ 꼭 포함
   };
 };
