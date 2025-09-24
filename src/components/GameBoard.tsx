@@ -79,9 +79,10 @@ export const GameBoard = () => {
   }
 }, [gameData.gameState, gameData.score, lastGameOverReason, t.timeUp, t.finalScore]);
 
-  const handleStartGame = () => {
-    startGame();
-  };
+  const handleStartGame = async () => {
+  await TTS.init();  // 🎧 사용자 음성 초기화 (iOS, Android 지원)
+  startGame();        // 🕹️ 기존 게임 시작
+};
 
   const progressPercentage = ((5 - gameData.timeRemaining) / 5) * 100;
 
