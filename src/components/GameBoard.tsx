@@ -12,6 +12,7 @@ import { FeedbackAudio } from "./FeedbackAudio";
 import { BackgroundMusic } from "./BackgroundMusic";
 import { useGameLogic } from "@/hooks/useGameLogic";
 import { getTranslation } from "@/utils/translations";
+import { TTS } from "@/lib/tts"; // ✅ 여기 추가!
 
 export const GameBoard = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("ko");
