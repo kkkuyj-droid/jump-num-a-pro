@@ -46,13 +46,14 @@ if (koreanVoice) {
   speakNow(koreanVoice);
 } else if (voices.length === 0) {
   speechSynthesis.onvoiceschanged = () => {
-    voices = speechSynthesis.getVoices();
-    koreanVoice = voices.find(
-      voice => voice.lang.includes('ko') || voice.name.includes('Korean')
-    );
-    speakNow(koreanVoice || null);
-    speechSynthesis.onvoiceschanged = null; // 중복 방지
-  };
+  speechSynthesis.onvoiceschanged = null; // ✅ 먼저 제거
+
+  voices = speechSynthesis.getVoices();
+  koreanVoice = voices.find(
+    voice => voice.lang.includes('ko') || voice.name.includes('Korean')
+  );
+  speakNow(koreanVoice || null);
+};
 } else {
   const fallback = voices.find(v => v.lang === 'ko-KR');
   speakNow(fallback || null);
